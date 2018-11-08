@@ -36,7 +36,7 @@ var typeNumMap map[uint8]string = map[uint8]string{
 type Message interface {
     MsgType() uint8
     Id() SeqId
-    Format() string
+    String() string
 }
 
 // MessageNoArgs is a Message with no arguments.
@@ -54,7 +54,7 @@ func (m *MessageNoArgs) Id() SeqId {
     return m.Seq
 }
 
-func (m *MessageNoArgs) Format() string {
+func (m *MessageNoArgs) String() string {
     return fmt.Sprintf("%d\\|%s\r\n", m.Seq, MessageTypeStr(m.MType))
 }
 
@@ -74,7 +74,7 @@ func (m *MessageFrom) Id() SeqId {
     return m.Seq
 }
 
-func (m *MessageFrom) Format() string {
+func (m *MessageFrom) String() string {
     return fmt.Sprintf("%d\\|%s\\|%d\r\n", m.Seq, MessageTypeStr(m.MType), m.IdFrom)
 }
 
@@ -96,7 +96,7 @@ func (m *MessageFromTo) Id() SeqId {
     return m.Seq
 }
 
-func (m *MessageFromTo) Format() string {
+func (m *MessageFromTo) String() string {
     return fmt.Sprintf("%d\\|%s\\|%d\\|%d\r\n", m.Seq, MessageTypeStr(m.MType), m.IdFrom, m.IdTo)
 }
 

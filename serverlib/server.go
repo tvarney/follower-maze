@@ -89,7 +89,7 @@ func (nc *NetClient) Id() UserId {
 }
 
 func (nc *NetClient) Write(msg Message) {
-    nc.conn.Write([]byte(msg.Format()))
+    nc.conn.Write([]byte(msg.String()))
 }
 
 type NetServer struct {
