@@ -4,12 +4,8 @@ package serverlib
 import (
     "errors"
     "fmt"
-    "strconv"
     "strings"
 )
-
-type UserId uint64
-type SeqId uint64
 
 const (
     MsgTypeError uint8 = 0
@@ -147,7 +143,7 @@ func ParseMessage(msgStr string) (Message, error) {
     if len(parts) <= 2 {
         return nil, errors.New("Invalid message format")
     }
-    seq, err := strconv.ParseUint(parts[0], 10, 64)
+    seq, err := ParseSeqId(parts[0])
     if err != nil {
         return nil, err
     }
@@ -156,11 +152,11 @@ func ParseMessage(msgStr string) (Message, error) {
 
     var args []UserId
     for _, arg := range parts[2:] {
-        v, err := strconv.ParseUint(arg, 10, 64)
+        v, err := ParseUserId(arg)
         if err != nil {
             return nil, err
         }
-        args = append(args, UserId(v))
+        args = append(args, v)
     }
 
     return NewMessage(SeqId(seq), msgTypeNo, args...)
