@@ -2,7 +2,7 @@
 package main
 
 import (
-    server "github.com/tvarney/follower-maze/serverlib"
+    server "github.com/tvarney/follower-maze/serverlib/net"
 )
 
 func main() {
