@@ -23,7 +23,7 @@ func ParseUserId(data string) (UserId, error) {
     if err != nil {
         return UserIdInvalid, err
     }
-    return UserId(idno), err
+    return UserId(idno), nil
 }
 
 func ParseSeqId(data string) (SeqId, error) {
