@@ -37,9 +37,15 @@ func ParseSeqId(data string) (SeqId, error) {
 // initialization. The NetClient structure uses this to read the user-id of
 // the client from the connection.
 type Client interface {
+    // Init does any client specific initialization.
+    // This should be called by the server implementation when the client is
+    // registered.
     Init()
+
+    // Id returns the unique UserId of the Client
     Id() UserId
-    Write(Message)
+
+    WriteMsg(Message)
 }
 
 // EventSource is the interface used to read events from an arbitrary source.
@@ -171,6 +177,7 @@ func (ns *NetServer) Init() {
     }
 }
 
+// Run starts the server instance
 func (ns *NetServer) Run() {
     if ns.regClient == nil {
         ns.Init()
@@ -179,8 +186,6 @@ func (ns *NetServer) Run() {
     if !ns.acceptConnections {
         ns.StartRegistrationThreads()
     }
-
-
 }
 
 func (ns *NetServer) GetClientPort() uint64 {
